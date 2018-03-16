@@ -52,39 +52,42 @@ struct Vector3f
     */
 
     // Возвращает покомпонентное произведение вектора на скаляр
-    /*
+
     Vector3f operator*(float scale) const
     {
+        return {x * scale, y * scale, z * scale};
     }
-    */
 
     // Умножает покомпонентно вектор на переданный скаляр
-    /*
-    Vector3f& operator*=(float scale)
+
+    Vector3f &operator*=(float scale)
     {
+        x *= scale;
+        y *= scale;
+        z *= scale;
+        return *this;
     }
-    */
 
     // Возвращает частное от покомпонентного деления вектора на скаляр
-    /*
     Vector3f operator/(float scale) const
     {
+        return Vector3f{this->x / scale, this->y / scale, this->z / scale};
     }
-    */
 
     // Делит покомпонентно вектор на переданный скаляр
-    /*
-    Vector3f& operator/=(float scale)
+    Vector3f &operator/=(float scale)
     {
+        this->x /= scale;
+        this->y /= scale;
+        this->z /= scale;
+        return *this;
     }
-    */
 
     // Выполняет покомпонентное сравнение двух векторов на равенство
-    /*
-    bool operator==(const Vector3f& a, const Vector3f& a) const
+    bool operator==(const Vector3f &a) const
     {
+        return ((a.x == this->x) && (a.y == this->y) && (a.z == this->z));
     }
-    */
 
     // Выполняет покомпонентное сравнение двух векторов на равенство
     /*
@@ -94,38 +97,46 @@ struct Vector3f
     */
 
     // Выполняет покомпонентное сравнение двух векторов на неравенство
-    /*
-    bool operator!=(const Vector3f& a, const Vector3f& a) const
+
+    bool operator!=(const Vector3f &a) const
     {
+        return !(a == *this);
     }
-    */
 };
 
 // Возвращает скалярное произведение двух векторов.
-/*
+
 inline float dot(const Vector3f& a, const Vector3f& b)
 {
+	return a.x * b.x + a.y * b.y + a.z * b.z;
 }
-*/
+
 
 // Возвращает векторное произведение двух векторов.
 // См. https://www.mathsisfun.com/algebra/vectors-cross-product.html
-/*
-inline Vector3f cross(const Vector3f& a, const Vector3f& b)
+
+inline Vector3f cross(const Vector3f &a, const Vector3f &b)
 {
+    float cx = a.z * b.z - a.z * b.y;
+    float cy = a.z * b.x - a.x * b.y;
+    float cz = a.x * b.y - a.y * b.y;
+    return {cx, cy, cz};
 }
-*/
 
 // Возвращает расстояние между двумя векторами в виде числа
-/*
-inline float distance(const Vector3f& a, const Vector3f& b)
+
+inline float distance(const Vector3f &a, const Vector3f &b)
 {
+    float dist = (b.x - a.x) * (b.x - a.x);
+    dist += (b.y - a.y) * (b.y - a.y);
+    dist += (b.z - a.z) * (b.z - a.z);
+
+    return std::sqrt(dist);
 }
-*/
 
 // Возвращает нормализованный вектор (вектор единичной длины, имеющий то же направлени)
-/*
-inline Vector3f normalize(const Vector3f& value)
+inline Vector3f normalize(const Vector3f &value)
 {
+    float norme = std::sqrt(value.x * value.x + value.y * value.y + value.z * value.z);
+    return (Vector3f{value.x / norme, value.y / norme, value.z / norme});
 }
-*/
